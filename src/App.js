@@ -1,29 +1,29 @@
 import { Route, Switch } from 'react-router-dom';
 
-import AllToDo from './pages/AllToDo';
+import AllTasks from './pages/AllTasks';
 import Categories from './pages/Categories';
-import NewToDo from './pages/NewToDo';
-import MainNavigation from './components/layout/MainNavigation';
+import NewTask from './pages/NewTask';
+import Layout from './components/layout/Layout';
 
 //import ToDo from "./components/ToDo";
 
 function App() {
 
   return (
-    <div>
-      <MainNavigation />
+    <Layout>
+      
       <Switch>
       <Route path='/' exact>
-        <AllToDo /> 
+        <AllTasks /> 
       </Route>
-      <Route path='/NewToDo'>
-        <NewToDo />
+      <Route path='/NewTask'>
+        <NewTask />
       </Route>
       <Route path='/Categories'>
         <Categories />
       </Route>
       </Switch>  
-    </div>   
+    </Layout>   
   );
 }
 

@@ -1,14 +1,17 @@
+import classes from './NewTaskForm.module.css';
 import { useState, useRef } from 'react';
 
-import Modal from "./Modal";
-import Backdrop from "./Backdrop";
+import Modal from '../Modal';
+import Backdrop from "../Backdrop";
+import Card from '../ui/Card';
 
-function ToDo(props){
+function NewTaskForm(props){
     const toDoInputRef = useRef();
     const toDoDateRef = useRef();
     const toDoMedTaskType = useRef();
     const toDoBusTaskType = useRef();
     const toDoHomeTaskType = useRef();
+    const toDoDescription = useRef();
 
     const [modalIsOpen, setModalIsOpen] = useState(false);
 
@@ -21,6 +24,7 @@ function ToDo(props){
         const enteredMed = toDoMedTaskType.current.value;
         const enteredBus = toDoBusTaskType.current.value;
         const enteredHome = toDoHomeTaskType.current.value;
+        const enteredDescription = toDoDescription.current.value;
 
         const toDoData = {
             title: enteredTask,
@@ -28,6 +32,7 @@ function ToDo(props){
             medical: enteredMed,
             business: enteredBus,
             home: enteredHome,
+            description: enteredDescription,
         };
 
        props.confirmHandler(toDoData);
@@ -44,39 +49,32 @@ function ToDo(props){
         setModalIsOpen(false)
     }
     
-    
-    return (
-    <div className = 'card'>
-        <h1>{props.text}</h1>
-        <div>
+return (
+    <Card>
+        <form className={classes.form}>
+        <div className={classes.control}>
         <label htmlFor='title'>Task to do: </label>
-        <br />
-        <input type = 'text' required id='task' ref={toDoInputRef} />
-        <br /> 
-        <label htmlFor='title'>Date to complete task: </label>
-        <br />
+        <input type = 'text' required id='title' ref={toDoInputRef} />
+        <label htmlFor='date'>Date to complete task: </label>
         <input type = 'date' required id='date' ref={toDoDateRef} />
-        <div className = 'actions'>
-        </div>
-        <div className = 'actions'>
-        </div>
-       
-        <br />
-        <label htmlFor='title'>Medical</label>
-        <input type ='checkbox' ref={toDoMedTaskType} />
-        <label htmlFor='title'>Business</label>
-        <input type ='checkbox' ref={toDoBusTaskType} />
-        <label htmlFor='title'>Home</label>
-        <input type ='checkbox' ref={toDoHomeTaskType} />
-        <br />
-        <button className = 'btn' onClick={updateHandler}>Update</button>
-        <button className = 'btn' onClick={deleteHandler}>Delete</button>
-        </div>
+        <label htmlFor='medical'>Medical</label>
+        <input type ='checkbox' id='medical' ref={toDoMedTaskType} />
+        <label htmlFor='business'>Business</label>
+        <input type ='checkbox' id='business' ref={toDoBusTaskType} />
+        <label htmlFor='home'>Home</label>
+        <input type ='checkbox' id='home' ref={toDoHomeTaskType} />
+        <label htmlFor='desription'>Home</label>
+        <textarea id='description' required rows='5' ref={toDoDescription} />
+        <button className={classes.actions} onClick={updateHandler}>Update</button>
+        <button className={classes.actions} onClick={deleteHandler}>Delete</button>
+      
 
         {modalIsOpen && <Modal onCancel={closeModalHandler} onConfirm={closeModalHandler}/>}
         {modalIsOpen && <Backdrop  onCancel={closeModalHandler} />}
       </div>
+      </form>
+      </Card>
 );
-    }
+}
 
-export default ToDo;
+export default NewTaskForm;
