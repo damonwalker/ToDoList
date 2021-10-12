@@ -1,34 +1,45 @@
+import { useState, useEffect } from 'react';
 import TaskList from '../components/tasks/TaskList';
 //this is where the data/props are being pulled from and then sent to the list
-const DummyData = [
-{
-    id: 'm1',
-    title: 'My first task',
-    date: '10/01/2021',
-    taskType: 'Yes',
-    description: 'this is the song that never ends'
-},
-{
-    id: 'm2',
-    title: 'My second task',
-    date: '11/01/2021',
-    taskType: 'Yes',
-    description: 'fiesta fiesta'
-},
-{
-    id: 'm1',
-    title: 'My third task',
-    date: '12/01/2021',
-    taskType: 'Yes',
-    description: 'aint nothing but a g thang baby'
-},
-];
+
 
 function AllTasks(){
+    const [isLoading, setIsLoading] = useState(true)
+    const [loadedTasks, setLoadedTasks] = useState([]);
+    
+    useEffect(() => {
+        setIsLoading(true);
+        fetch('https://taskmanager-344f8-default-rtdb.firebaseio.com/task.json')
+        .then((response) => {
+            return response.json();
+        })
+        .then(data => {
+            const tasks =[]; // transform the object data from the database to an array
+
+            for (const key in data){
+                const task = {
+                    id: key,// key is the serial number of the data in firebase
+                    ...data[key] // spread operator... for all data in the key
+                };
+
+                tasks.push(task); // push the data to a new array
+            }
+                setIsLoading(false);
+                setLoadedTasks(tasks)
+        });
+    },  []); // this array is used to check for values in the database/array/dependencies
+    
+        if(isLoading){
+            return (
+                <section>
+                    <p>Loading...</p>
+                </section>
+            )
+        }
 return (
     <section>
     <h1>All Tasks Page</h1>
-    <TaskList tasks={DummyData} />
+    <TaskList tasks={loadedTasks} />
     </section>
 )
 }

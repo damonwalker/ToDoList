@@ -1,7 +1,10 @@
+import { useHistory } from 'react-router-dom';
+
 import NewTaskForm from "../components/tasks/NewTaskForm";
 //import ToDo from "../components/ToDo";
 
 function NewTask() {
+    const history = useHistory();//useHistory allows you to change the view of what's displayed on the site. 
       function confirmTaskHandler(toDoData){
         fetch('https://taskmanager-344f8-default-rtdb.firebaseio.com/task.json',
         {
@@ -11,7 +14,9 @@ function NewTask() {
                 'Content-Type': 'application/json'
             }
         }
-        );
+        ).then(() => {
+            history.replace('/');
+        });
       }  
 
     return (

@@ -58,12 +58,11 @@ return (
         <label htmlFor='date'>Date to complete task: </label>
         <input type = 'date' required id='date' ref={toDoDateRef} />
         <label htmlFor='medical'>Medical</label>
-        <input type ='checkbox' id='medical' ref={toDoMedTaskType} />
+        <input type ='radio' name='rbutton' id='medical' ref={toDoMedTaskType} />
         <label htmlFor='business'>Business</label>
-        <input type ='checkbox' id='business' ref={toDoBusTaskType} />
+        <input type ='radio' name='rbutton' id='business' ref={toDoBusTaskType} />
         <label htmlFor='home'>Home</label>
-        <input type ='checkbox' id='home' ref={toDoHomeTaskType} />
-        <label htmlFor='desription'>Home</label>
+        <input type ='radio' name='rbutton' id='home' ref={toDoHomeTaskType} />
         <textarea id='description' required rows='5' ref={toDoDescription} />
         <button className={classes.actions} onClick={updateHandler}>Update</button>
         <button className={classes.actions} onClick={deleteHandler}>Delete</button>
